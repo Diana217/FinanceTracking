@@ -103,4 +103,6 @@ app.MapControllers();
 
 app.MapIncomeCategoryEndpoints();
 
+app.MapSpendingCategoryEndpoints();
+
 app.Run();
