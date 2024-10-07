@@ -1,4 +1,4 @@
-using FinanceTracking.Models;
+п»їusing FinanceTracking.Models;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
@@ -38,7 +38,7 @@ builder.Services.AddCors(options =>
 {
     options.AddPolicy("AllowVueApp",
         policy => policy
-            .WithOrigins("https://your-vue-app-domain.com") // Змініть на реальний домен вашого фронтенду
+            .WithOrigins("https://your-vue-app-domain.com")
             .AllowAnyHeader()
             .AllowAnyMethod()
             .AllowCredentials());
@@ -100,5 +100,7 @@ app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapControllers();
+
+app.MapIncomeCategoryEndpoints();
 
 app.Run();
