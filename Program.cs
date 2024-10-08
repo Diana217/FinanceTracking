@@ -38,7 +38,7 @@ builder.Services.AddCors(options =>
 {
     options.AddPolicy("AllowVueApp",
         policy => policy
-            .WithOrigins("https://your-vue-app-domain.com")
+            .WithOrigins("https://localhost:5173")
             .AllowAnyHeader()
             .AllowAnyMethod()
             .AllowCredentials());
