@@ -10,18 +10,18 @@ namespace FinanceTracking.Controllers;
 [Route("api/[controller]")]
 [ApiController]
 [Authorize]
-public class IncomeCategoryController : ControllerBase
+public class IncomeCategoriesController : ControllerBase
 {
     private readonly ApplicationContext _context;
 
-    public IncomeCategoryController(ApplicationContext context)
+    public IncomeCategoriesController(ApplicationContext context)
     {
         _context = context;
     }
 
     // GET: api/IncomeCategory
     [HttpGet]
-    public async Task<ActionResult<IEnumerable<IncomeCategory>>> GetAllIncomeCategories()
+    public async Task<ActionResult<IEnumerable<IncomeCategory>>> GetIncomeCategories()
     {
         var userId = User.FindFirstValue("UserID");
         if (userId == null)
@@ -36,7 +36,7 @@ public class IncomeCategoryController : ControllerBase
 
     // GET: api/IncomeCategory/{id}
     [HttpGet("{id}")]
-    public async Task<ActionResult<IncomeCategory>> GetIncomeCategoryById(int id)
+    public async Task<ActionResult<IncomeCategory>> GetIncomeCategory(int id)
     {
         var userId = User.FindFirstValue("UserID");
         if (userId == null)
@@ -93,17 +93,22 @@ public class IncomeCategoryController : ControllerBase
         _context.IncomeCategories.Add(incomeCategory);
         await _context.SaveChangesAsync();
 
-        return CreatedAtAction(nameof(GetIncomeCategoryById), new { id = incomeCategory.Id }, incomeCategory);
+        return CreatedAtAction(nameof(GetIncomeCategory), new { id = incomeCategory.Id }, incomeCategory);
     }
 
     // DELETE: api/IncomeCategory/{id}
     [HttpDelete("{id}")]
     public async Task<IActionResult> DeleteIncomeCategory(int id)
     {
-        var affected = await _context.IncomeCategories
-            .Where(model => model.Id == id)
-            .ExecuteDeleteAsync();
+        var incomeCategory = await _context.IncomeCategories.FindAsync(id);
+        if (incomeCategory == null)
+        {
+            return NotFound();
+        }
 
-        return affected == 1 ? NoContent() : NotFound();
+        _context.IncomeCategories.Remove(incomeCategory);
+        await _context.SaveChangesAsync();
+
+        return NoContent();
     }
 }

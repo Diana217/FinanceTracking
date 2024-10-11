@@ -108,6 +108,4 @@ app.UseAuthorization();
 
 app.MapControllers();
 
-app.MapSpendingCategoryEndpoints();
-
 app.Run();
