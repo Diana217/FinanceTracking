@@ -96,9 +96,15 @@ namespace FinanceTracking.Migrations
                     b.Property<DateTime>("Date")
                         .HasColumnType("datetime2");
 
+                    b.Property<string>("UserId")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(450)");
+
                     b.HasKey("Id");
 
                     b.HasIndex("CategoryId");
+
+                    b.HasIndex("UserId");
 
                     b.ToTable("Expenses");
                 });
@@ -466,7 +472,15 @@ namespace FinanceTracking.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
+                    b.HasOne("FinanceTracking.Models.User", "User")
+                        .WithMany()
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
                     b.Navigation("Category");
+
+                    b.Navigation("User");
                 });
 
             modelBuilder.Entity("FinanceTracking.Models.FinancialGoal", b =>
@@ -483,7 +497,7 @@ namespace FinanceTracking.Migrations
             modelBuilder.Entity("FinanceTracking.Models.Income", b =>
                 {
                     b.HasOne("FinanceTracking.Models.IncomeCategory", "Category")
-                        .WithMany("Incomes")
+                        .WithMany()
                         .HasForeignKey("CategoryId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -586,11 +600,6 @@ namespace FinanceTracking.Migrations
             modelBuilder.Entity("FinanceTracking.Models.FinancialGoal", b =>
                 {
                     b.Navigation("Savings");
-                });
-
-            modelBuilder.Entity("FinanceTracking.Models.IncomeCategory", b =>
-                {
-                    b.Navigation("Incomes");
                 });
 
             modelBuilder.Entity("FinanceTracking.Models.SpendingCategory", b =>

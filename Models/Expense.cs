@@ -10,4 +10,6 @@ public class Expense
     public int CategoryId { get; set; }
     public virtual SpendingCategory Category { get; set; } = null!;
     public DateTime Date { get; set; }
+    public string UserId { get; set; } = null!;
+    public virtual User User { get; set; } = null!;
 }
