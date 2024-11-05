@@ -31,7 +31,7 @@ namespace FinanceTracking.Controllers
                 return Unauthorized();
 
             var goals = await _context.FinancialGoals
-                .Where(category => category.UserId == userId)
+                .Where(goal => goal.UserId == userId)
                 .ToListAsync();
 
             return goals;
