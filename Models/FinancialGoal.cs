@@ -4,10 +4,6 @@ namespace FinanceTracking.Models;
 
 public class FinancialGoal
 {
-    public FinancialGoal()
-    {
-        Savings = new HashSet<Saving>();
-    }
     public int Id { get; set; }
     public string Name { get; set; } = null!;
     [Column(TypeName = "decimal(18,2)")]
@@ -17,5 +13,4 @@ public class FinancialGoal
     public DateTime StartDate { get; set; }
     public DateTime EndDate { get; set; }
     public bool? IsCompleted { get; set; }
-    public virtual ICollection<Saving> Savings { get; set; }
 }
