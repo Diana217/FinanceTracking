@@ -214,9 +214,15 @@ namespace FinanceTracking.Migrations
                     b.Property<int>("GoalId")
                         .HasColumnType("int");
 
+                    b.Property<string>("UserId")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(450)");
+
                     b.HasKey("Id");
 
                     b.HasIndex("GoalId");
+
+                    b.HasIndex("UserId");
 
                     b.ToTable("Savings");
                 });
@@ -467,7 +473,7 @@ namespace FinanceTracking.Migrations
             modelBuilder.Entity("FinanceTracking.Models.Expense", b =>
                 {
                     b.HasOne("FinanceTracking.Models.SpendingCategory", "Category")
-                        .WithMany("Expenses")
+                        .WithMany()
                         .HasForeignKey("CategoryId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -527,12 +533,20 @@ namespace FinanceTracking.Migrations
             modelBuilder.Entity("FinanceTracking.Models.Saving", b =>
                 {
                     b.HasOne("FinanceTracking.Models.FinancialGoal", "Goal")
-                        .WithMany("Savings")
+                        .WithMany()
                         .HasForeignKey("GoalId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
+                    b.HasOne("FinanceTracking.Models.User", "User")
+                        .WithMany()
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
                     b.Navigation("Goal");
+
+                    b.Navigation("User");
                 });
 
             modelBuilder.Entity("FinanceTracking.Models.SpendingCategory", b =>
@@ -595,16 +609,6 @@ namespace FinanceTracking.Migrations
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
-                });
-
-            modelBuilder.Entity("FinanceTracking.Models.FinancialGoal", b =>
-                {
-                    b.Navigation("Savings");
-                });
-
-            modelBuilder.Entity("FinanceTracking.Models.SpendingCategory", b =>
-                {
-                    b.Navigation("Expenses");
                 });
 #pragma warning restore 612, 618
         }
