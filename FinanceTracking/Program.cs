@@ -77,7 +77,7 @@ using (var scope = app.Services.CreateScope())
 {
     var services = scope.ServiceProvider;
     var db = services.GetRequiredService<ApplicationContext>();
-    db.Database.Migrate();
+    //db.Database.Migrate();
 
     try
     {
@@ -109,3 +109,5 @@ app.UseAuthorization();
 app.MapControllers();
 
 app.Run();
+
+public partial class Program { }
