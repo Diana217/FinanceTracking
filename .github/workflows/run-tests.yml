@@ -23,10 +23,10 @@ jobs:
         dotnet-version: '8.0'  # Вкажіть потрібну версію .NET SDK
 
     - name: Restore dependencies
-      run: dotnet restore FinanceTracking.sln # Відновлює залежності проекту
+      run: dotnet restore FinanceTracking/FinanceTracking.sln # Відновлює залежності проекту
 
     - name: Build the project
-      run: dotnet build FinanceTracking.sln --no-restore --configuration Release  # Збирає проект без відновлення (оскільки це вже зроблено)
+      run: dotnet build FinanceTracking/FinanceTracking.sln --no-restore --configuration Release  # Збирає проект без відновлення (оскільки це вже зроблено)
 
     - name: Run tests
-      run: dotnet test FinanceTracking.sln --no-build --configuration Release --verbosity normal  # Запускає тести
+      run: dotnet test FinanceTracking/FinanceTracking.sln --no-build --configuration Release --verbosity normal  # Запускає тести
