@@ -1,0 +1,32 @@
+name: .NET CI
+
+on:
+  push:
+    branches:
+      - main  # Виконувати тести при комітах в основну гілку (замініть на вашу гілку, якщо потрібно)
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest  # Середовище для виконання (Ubuntu, Windows або MacOS)
+
+    steps:
+    - name: Check out the code
+      uses: actions/checkout@v2  # Завантажує код репозиторію
+
+    - name: Set up .NET
+      uses: actions/setup-dotnet@v3  # Встановлює .NET SDK
+      with:
+        dotnet-version: '8.0'  # Вкажіть потрібну версію .NET SDK
+
+    - name: Restore dependencies
+      run: dotnet restore  # Відновлює залежності проекту
+
+    - name: Build the project
+      run: dotnet build --no-restore --configuration Release  # Збирає проект без відновлення (оскільки це вже зроблено)
+
+    - name: Run tests
+      run: dotnet test --no-build --configuration Release --verbosity normal  # Запускає тести
