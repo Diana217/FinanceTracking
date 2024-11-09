@@ -26,7 +26,7 @@ jobs:
       run: dotnet restore  # Відновлює залежності проекту
 
     - name: Build the project
-      run: dotnet FinanceTracking/FinanceTracking.sln --no-restore --configuration Release  # Збирає проект без відновлення (оскільки це вже зроблено)
+      run: dotnet build --no-restore --configuration Release  # Збирає проект без відновлення (оскільки це вже зроблено)
 
     - name: Run tests
-      run: dotnet test ../UnitTests/UnitTests.csproj --no-build --configuration Release --verbosity normal  # Запускає тести
+      run: dotnet test --no-build --configuration Release --verbosity normal  # Запускає тести
