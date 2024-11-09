@@ -34,7 +34,7 @@ public class AuthController : ControllerBase
             await _userManager.AddToRoleAsync(user, "User");
 
             var token = _tokenService.CreateToken(user);
-            return Ok(new { Token = token });
+            return Ok(new AuthResponse { Token = token });
         }
 
         foreach (var error in result.Errors)
@@ -60,7 +60,7 @@ public class AuthController : ControllerBase
         if (result.Succeeded)
         {
             var token = _tokenService.CreateToken(user);
-            return Ok(new { Token = token });
+            return Ok(new AuthResponse { Token = token });
         }
 
         return Unauthorized("Invalid username or password.");
