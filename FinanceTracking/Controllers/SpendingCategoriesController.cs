@@ -32,11 +32,11 @@ public class SpendingCategoriesController : ControllerBase
         if (userId == null)
             return Unauthorized();
 
-        //var categories = await _context.SpendingCategories
-        //    .Where(category => category.UserId == userId)
-        //    .ToListAsync();
+        var categories = await _context.SpendingCategories
+            .Where(category => category.UserId == userId)
+            .ToListAsync();
 
-        return null;
+        return categories;
     }
 
     // GET: api/SpendingCategory/5
